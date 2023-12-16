@@ -1,6 +1,7 @@
 import landing from "../assets/landing.png";
 import pagi from "../assets/pagi.png";
 import petang from "../assets/petang.png";
+import { useNavigation } from "@react-navigation/native";
 import Animated, { SlideInDown } from "react-native-reanimated";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import {
@@ -19,6 +20,7 @@ const ImagePagi = Image.resolveAssetSource(pagi).uri;
 const ImagePetang = Image.resolveAssetSource(petang).uri;
 
 export default function Homepage() {
+  const navigation = useNavigation();
   const { colors, dark, setScheme } = useTheme();
 
   const ToggleTheme = () => {
@@ -109,6 +111,7 @@ export default function Homepage() {
         style={styles.dzikirsContainer}
         entering={SlideInDown.duration(500).easing()}>
         <Pressable
+          onPress={() => navigation.navigate("Pagi")}
           style={({ pressed }) => [
             styles.dzikirContainer,
             pressed && styles.pressed,
@@ -129,6 +132,7 @@ export default function Homepage() {
           </View>
         </Pressable>
         <Pressable
+          onPress={() => navigation.navigate("Petang")}
           style={({ pressed }) => [
             styles.dzikirContainer,
             pressed && styles.pressed,

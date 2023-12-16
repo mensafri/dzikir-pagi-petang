@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
 import tangan from "../assets/tangan.png";
 import { useNavigation } from "@react-navigation/native";
-import Animated, { FadeIn, SlideInDown, ZoomIn } from "react-native-reanimated";
+import Animated, { SlideInDown, ZoomIn } from "react-native-reanimated";
 import landing from "../assets/landing.png";
 import { screenHeight, screenWidth } from "../constants/scale";
 
