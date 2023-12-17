@@ -103,7 +103,7 @@ export default function Homepage() {
           <Ionicons
             name={dark ? "moon-sharp" : "sunny-outline"}
             size={screenWidth / 10}
-            color={dark ? "white" : "black"}
+            color={dark ? "#881FDB" : "black"}
           />
         </Pressable>
       </View>
