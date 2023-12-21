@@ -1,7 +1,11 @@
-import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import tangan from "../assets/tangan.png";
 import { useNavigation } from "@react-navigation/native";
-import Animated, { SlideInDown, ZoomIn } from "react-native-reanimated";
+import Animated, {
+  SlideInDown,
+  ZoomIn,
+  SlideOutUp,
+} from "react-native-reanimated";
 import landing from "../assets/landing.png";
 import { screenHeight, screenWidth } from "../constants/scale";
 
@@ -17,6 +21,7 @@ export default function Landing() {
     <View style={styles.container}>
       <Animated.Image
         entering={ZoomIn.duration(1000)}
+        exiting={SlideOutUp.duration(200)}
         source={{ uri: ImageTangan }}
         style={styles.imageTangan}
       />
@@ -35,6 +40,7 @@ export default function Landing() {
             fontSize: screenWidth / 20,
             fontWeight: "500",
             textAlign: "center",
+            fontFamily: "Montserrat_600SemiBold",
           }}>
           Mulai
         </Text>

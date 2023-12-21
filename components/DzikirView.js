@@ -1,13 +1,21 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import PagerView from "react-native-pager-view";
+import Animated, {
+  LightSpeedInLeft,
+  SlideInLeft,
+} from "react-native-reanimated";
 import React, { useState } from "react";
 import { screenHeight, screenWidth } from "../constants/scale";
 import * as Progress from "react-native-progress";
 import { useTheme } from "../themes/ThemeProvider";
 
+AnimatedProgress = Animated.createAnimatedComponent(Progress.Bar);
+
+AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
+
 export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
   const [progress, setProgress] = useState(0);
-  const { colors } = useTheme();
+  const { colors, dark } = useTheme();
 
   const onPageChange = (e) => {
     const position = e.nativeEvent.position;
@@ -26,6 +34,7 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
     },
     teks: {
       color: colors.teks,
+      fontFamily: "Montserrat_500Medium",
     },
   });
 
@@ -35,16 +44,18 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
         style={{
           backgroundColor: colors.background,
         }}>
-        <Progress.Bar
+        <AnimatedProgress
+          entering={LightSpeedInLeft}
           progress={progress}
           width={screenWidth}
           height={screenHeight / 100}
           color="#881FDB"
-          unfilledColor="#F4F4F4"
+          unfilledColor={dark ? "#333333" : "#F4F4F4"}
           borderColor={colors.background}
         />
       </View>
-      <PagerView
+      <AnimatedPagerView
+        entering={SlideInLeft.duration(500)}
         initialPage={0}
         ref={pagerRef}
         style={styles.pagerContainer}
@@ -54,7 +65,7 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
             key={item.no}
             style={{
               paddingHorizontal: screenWidth / 15,
-              height: screenHeight / 1.35,
+              height: screenHeight / 1.4,
             }}>
             <Text
               style={[
@@ -68,6 +79,7 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
                   borderRadius: screenWidth / 10,
                   paddingVertical: screenHeight / 160,
                   paddingHorizontal: screenWidth / 100,
+                  fontFamily: "Montserrat_600SemiBold",
                 },
               ]}>
               Dibaca {item.jumlah} kali
@@ -79,6 +91,7 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
                   {
                     fontSize: screenWidth / 15,
                     textAlign: "center",
+                    fontFamily: "Amiri_400Regular",
                   },
                 ]}>
                 {item.arab}
@@ -88,6 +101,7 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
                   styles.teks,
                   {
                     fontSize: screenWidth / 25,
+                    lineHeight: screenHeight / 32,
                   },
                 ]}>
                 {item.indo}
@@ -105,7 +119,7 @@ export default function DzikirView({ data, setCurrentPosition, pagerRef }) {
             </ScrollView>
           </View>
         ))}
-      </PagerView>
+      </AnimatedPagerView>
     </>
   );
 }

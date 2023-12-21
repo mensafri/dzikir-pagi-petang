@@ -1,8 +1,11 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import Animated, { SlideInDown } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../themes/ThemeProvider";
 import { screenHeight, screenWidth } from "../constants/scale";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function FooterDzikir({ pagerRef, currentPosition, data }) {
   const navigation = useNavigation();
@@ -48,7 +51,8 @@ export default function FooterDzikir({ pagerRef, currentPosition, data }) {
 
   return (
     <>
-      <View
+      <Animated.View
+        entering={SlideInDown.duration(250)}
         style={{
           backgroundColor: colors.background,
           flexDirection: "row",
@@ -86,20 +90,18 @@ export default function FooterDzikir({ pagerRef, currentPosition, data }) {
             color={dark ? "white" : "black"}
           />
         </Pressable>
-      </View>
-      <Pressable
+      </Animated.View>
+      <AnimatedPressable
+        entering={SlideInDown.duration(250)}
         onPress={() => navigation.goBack()}
-        style={({ pressed }) => [
-          styles.bottomButton,
-          pressed && styles.pressed,
-        ]}>
+        style={styles.bottomButton}>
         <MaterialIcons
           name="home-filled"
           size={screenWidth / 10}
           color="white"
         />
         <Text style={{ textAlign: "center", color: "white" }}>Home</Text>
-      </Pressable>
+      </AnimatedPressable>
     </>
   );
 }

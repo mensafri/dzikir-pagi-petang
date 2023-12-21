@@ -19,9 +19,11 @@ const ImageLanding = Image.resolveAssetSource(landing).uri;
 const ImagePagi = Image.resolveAssetSource(pagi).uri;
 const ImagePetang = Image.resolveAssetSource(petang).uri;
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 export default function Homepage() {
   const navigation = useNavigation();
-  const { colors, dark, setScheme } = useTheme();
+  const { colors, dark, setScheme } = useTheme();  
 
   const ToggleTheme = () => {
     dark ? setScheme("light") : setScheme("dark");
@@ -80,6 +82,7 @@ export default function Homepage() {
       textAlign: "center",
       fontSize: screenWidth / 28,
       color: colors.teks,
+      fontFamily: "Montserrat_500Medium",
     },
     toggleContainer: {
       marginTop: screenHeight / 90,
@@ -94,18 +97,16 @@ export default function Homepage() {
           source={{ uri: ImageLanding }}
           style={styles.imageTeks}
         />
-        <Pressable
+        <AnimatedPressable
+          sharedTransitionTag="ThemeTag"
           onPress={ToggleTheme}
-          style={({ pressed }) => [
-            styles.toggleContainer,
-            pressed && styles.pressed,
-          ]}>
+          style={styles.toggleContainer}>
           <Ionicons
             name={dark ? "moon-sharp" : "sunny-outline"}
             size={screenWidth / 10}
             color={dark ? "#881FDB" : "black"}
           />
-        </Pressable>
+        </AnimatedPressable>
       </View>
       <Animated.View
         style={styles.dzikirsContainer}
@@ -123,7 +124,14 @@ export default function Homepage() {
               justifyContent: "space-between",
               alignItems: "center",
             }}>
-            <Text style={styles.teks}>Dzikir Pagi</Text>
+            <Animated.Text
+              style={{
+                color: colors.teks,
+                fontFamily: "Montserrat_600SemiBold",
+              }}
+              sharedTransitionTag="teksTagPagi">
+              Dzikir Pagi
+            </Animated.Text>
             <MaterialIcons
               name="keyboard-arrow-right"
               size={screenWidth / 15}
@@ -144,7 +152,14 @@ export default function Homepage() {
               justifyContent: "space-between",
               alignItems: "center",
             }}>
-            <Text style={styles.teks}>Dzikir Petang</Text>
+            <Animated.Text
+              style={{
+                color: colors.teks,
+                fontFamily: "Montserrat_600SemiBold",
+              }}
+              sharedTransitionTag="teksTagPetang">
+              Dzikir Petang
+            </Animated.Text>
             <MaterialIcons
               name="keyboard-arrow-right"
               size={screenWidth / 15}
